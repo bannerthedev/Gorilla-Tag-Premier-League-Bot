@@ -91,15 +91,15 @@ DEFAULT_CONFIG = {
 }
 
 # ---------------- FILES ----------------
-data_file = os.getenv("data_file", "/data")
-os.makedirs(data_file, exist_ok=True)
-TEAMS_FILE = os.path.join(data_file, "teams.json")
-PLAYER_HISTORY_FILE = os.path.join(data_file, "player_history.json")
-INVITES_FILE = os.path.join(data_file, "invites.json")
-ROSTER_LOCK_FILE = os.path.join(data_file, "roster_lock.json")
-CONFIG_FILE = os.path.join(data_file, "config.json")  # replace CONFIG_PATH
-CODES_STATE_FILE = os.path.join(data_file, "codes_state.json")
+data_dir = Path(os.getenv("data_file", "/data"))
+data_dir.mkdir(parents=True, exist_ok=True)
 
+TEAMS_FILE = data_dir / "teams.json"
+PLAYER_HISTORY_FILE = data_dir / "player_history.json"
+INVITES_FILE = data_dir / "invites.json"
+ROSTER_LOCK_FILE = data_dir / "roster_lock.json"
+CONFIG_FILE = data_dir / "config.json"
+CODES_STATE_FILE = data_dir / "codes_state.json"
 
 
 # X/Y positions are the *centers* of the first‑round boxes.
