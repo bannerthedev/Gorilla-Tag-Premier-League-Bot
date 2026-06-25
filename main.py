@@ -69,7 +69,6 @@ FORCE_WARN_MARKER = "⚠️"
 DEFAULT_CONFIG = {
     "channels": {
         "transactions": TRANSACTIONS_CHANNEL_ID,
-        "faq": None,
         "submit_time": MATCH_TIMES_CHANNEL_ID,
         "submit_score": MATCH_SCORE_CHANNEL_ID,
         "scheduling": None,
@@ -83,7 +82,6 @@ DEFAULT_CONFIG = {
         "team_member": TEAM_PLAYER_ROLE_ID,
         "caster": CASTER_ROLE_ID,
         "referee": REF_ROLE_ID,
-        "stream_watcher": STREAM_WATCHER_ROLE_ID,
     },
     "roster_rules": {
         "max_roster": 12,
