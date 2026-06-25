@@ -1,7 +1,7 @@
 import asyncio
 import json
 import os
-import dotevn
+import dotenv
 import re
 from urllib.parse import urlparse, parse_qs
 import random
