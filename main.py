@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+import dotevn
 import re
 from urllib.parse import urlparse, parse_qs
 import random
@@ -18,10 +19,12 @@ from discord import app_commands, Object
 from pathlib import Path
 from discord.ext import tasks
 from aiohttp import web
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # ---------------- CONFIG ----------------
-BOT_TOKEN = "MTUxOTQ2NDM4NzI5Mzc0MTA1Ng.GnEa1B.tg1lLYggbbo5j6L-efvLb2nzA3XX8nyqIoXa_E"
 TEST_GUILD_ID = 1421849881013784629
 
 # Channel IDs
@@ -93,14 +96,14 @@ DEFAULT_CONFIG = {
 }
 
 # ---------------- FILES ----------------
-TEAMS_FILE = Path("teams.json")
-PLAYER_HISTORY_FILE = Path("player_history.json")
-INVITES_FILE = Path("invites.json")
-ROSTER_LOCK_FILE = Path("roster_lock.json")
-CONFIG_FILE = Path("config.json")  # replace CONFIG_PATH
-YOUTUBE_STATE_FILE = Path("youtube_state.json")
-CODES_STATE_FILE = Path("codes_state.json")
-HEADSETS_FILE = Path("headsets.json")
+data_file = os.getenv("data_file", "/data")
+os.makedirs(data_file, exist_ok=True)
+TEAMS_FILE = os.path.join(data_file, "teams.json")
+PLAYER_HISTORY_FILE = os.path.join(data_file, "player_history.json")
+INVITES_FILE = os.path.join(data_file, "invites.json")
+ROSTER_LOCK_FILE = os.path.join(data_file, "roster_lock.json")
+CONFIG_FILE = os.path.join(data_file, "config.json")  # replace CONFIG_PATH
+CODES_STATE_FILE = os.path.join(data_file, "codes_state.json")
 
 
 
@@ -143,37 +146,6 @@ def format_list_arrow(items: list[str]) -> str:
     if not items:
         return "> • None"
     return "\n".join(f"> • {it}" for it in items)
-
-
-
-
-
-DEFAULT_HEADSETS = [
-    "Meta Quest 2",
-    "Meta Quest 3",
-    "Meta Quest 3s",
-    "Meta Quest Pro",
-]
-
-def load_headsets() -> list[str]:
-    if not HEADSETS_FILE.is_file():
-        return DEFAULT_HEADSETS.copy()
-    try:
-        with HEADSETS_FILE.open("r", encoding="utf-8") as f:
-            data = json.load(f)
-            if isinstance(data, list):
-                # ensure all strings
-                return [str(x) for x in data]
-    except Exception:
-        pass
-    return DEFAULT_HEADSETS.copy()
-
-def save_headsets(headsets: list[str]):
-    try:
-        with HEADSETS_FILE.open("w", encoding="utf-8") as f:
-            json.dump(headsets, f, indent=2)
-    except Exception:
-        pass
 
 
 
@@ -5296,7 +5268,7 @@ class MainBot(commands.Bot):
             "AutoCodeCog",
             "ServerStatsCog",
             "RescrimCog",
-            ""
+            "SetupCog"
         ]
 
         for name in cog_names:
@@ -5327,4 +5299,4 @@ async def on_ready():
     print(f"Logged in as {bot.user} (ID: {bot.user.id})")
 
 if __name__ == "__main__":
-    bot.run(BOT_TOKEN)
+    bot.run(os.getenv("BOT_TOKEN"))
