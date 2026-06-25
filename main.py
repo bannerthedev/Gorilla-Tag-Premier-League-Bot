@@ -69,6 +69,7 @@ FORCE_WARN_MARKER = "⚠️"
 DEFAULT_CONFIG = {
     "channels": {
         "transactions": TRANSACTIONS_CHANNEL_ID,
+        "faq": None,
         "submit_time": MATCH_TIMES_CHANNEL_ID,
         "submit_score": MATCH_SCORE_CHANNEL_ID,
         "scheduling": None,
@@ -1235,7 +1236,7 @@ class AddScrimModal(discord.ui.Modal, title="Add Scrim"):
         else:
             msg = (
                 f"{t1m} vs {t2m}\n\n"
-                f"# Welcome to MMM Bracket\n"
+                f"# Welcome to GTPL Bracket\n"
                 f"> 🗓️ You guys will have 3 day to schedule\n"
                 f"> ⚔️ And 4 days to play\n"
                 f"> Ping a staff member when you're ready to schedule or have any questions!"
@@ -1316,7 +1317,7 @@ class AdminAddModal(discord.ui.Modal, title="Admin Add Player"):
 class AutoCodeCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.state = load_codes_state()  # {str(message_id): {"code": "MMM1234", "time": "..."}}
+        self.state = load_codes_state()  # {str(message_id): {"code": "GTPL1234", "time": "..."}}
         self.check_matches.start()
 
     def cog_unload(self):
@@ -1573,7 +1574,7 @@ class AutoCodeCog(commands.Cog):
 
 
                     # generate code
-                    code = f"MMM{random.randint(1000, 9999)}"
+                    code = f"GTPL{random.randint(1000, 9999)}"
 
                     # resolve teams to mentions
                     t1_role, t1_mention, _ = resolve_team_any(guild, parsed["team1"])
@@ -5015,7 +5016,7 @@ class CommandGuideCog(commands.Cog):
                     if not msg.embeds:
                         continue
                     emb = msg.embeds[0]
-                    if (emb.title or "").strip().lower() == "mmm command guide":
+                    if (emb.title or "").strip().lower() == "GTPL command guide":
                         already = True
                         break
             except Exception:
@@ -5026,7 +5027,7 @@ class CommandGuideCog(commands.Cog):
 
             # Build the guide embed (blue)
             embed = discord.Embed(
-                title="MMM Command Guide",
+                title="GTPL Command Guide",
                 description="What every command does and who can use it:",
                 color=discord.Color.blue(),
             )
@@ -5074,7 +5075,7 @@ class CommandGuideCog(commands.Cog):
             )
             embed.add_field(name="🧰 Staff Utility", value=staff_value, inline=False)
 
-            embed.set_footer(text="MMM Season Management System")
+            embed.set_footer(text="GTPL Season Management System")
 
             try:
                 await ch.send(embed=embed)
@@ -5263,7 +5264,7 @@ class MainBot(commands.Bot):
             "AutoCodeCog",
             "ServerStatsCog",
             "RescrimCog",
-            "SetupCog"
+            "SetupCog",
         ]
 
         for name in cog_names:
