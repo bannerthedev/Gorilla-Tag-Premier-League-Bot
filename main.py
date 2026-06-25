@@ -75,9 +75,6 @@ DEFAULT_CONFIG = {
         "scheduling": None,
         "assignments": ASSIGNMENTS_CHANNEL_ID,
         "force_time_review": FORCE_TIME_REVIEW_CHANNEL_ID,
-        "youtube_source": YOUTUBE_SOURCE_CHANNEL_ID,
-        "youtube_live_dest": YOUTUBE_LIVE_DEST_CHANNEL_ID,
-        "youtube_video_dest": YOUTUBE_VIDEO_DEST_CHANNEL_ID,
     },
     "roles": {
         "captain": CAPTAIN_ROLE_ID,
